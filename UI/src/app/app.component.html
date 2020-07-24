@@ -1,0 +1,70 @@
+<mat-toolbar>
+
+  <span>My App</span>
+
+
+ 
+</mat-toolbar>
+<!-- Dialog-->
+<p-dialog header="Title" [(visible)]="display">
+
+  <tr *ngFor="let col of phoneNumbers">
+    <th >
+      {{col.type}} - {{col.number}}<br>
+    </th>
+</tr>
+
+  <!--Table-->
+</p-dialog>
+
+<p-table [columns]="cols" [value]="Adreses" selectionMode="single" [(selection)]="selectedAddress" dataKey="id"
+    (onRowSelect)="showDialog($event)">
+    <ng-template pTemplate="header" let-columns>
+        <tr>
+            <th *ngFor="let col of columns">
+                {{col.header}}
+            </th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-rowData let-columns="columns">
+        <tr [pSelectableRow]="rowData">
+            <td *ngFor="let col of columns">
+                {{rowData[col.field]}}
+            </td>
+        </tr>
+    </ng-template>
+</p-table>
+
+<br><br><br>
+<!-- Form-->
+<div style="position:absolute; padding-left: 250px;">
+ 
+  <span>Add phoneNumber</span>
+  <div class="p-grid" style="width:250px;margin-bottom:10px">
+
+    <mat-form-field appearance="fill">
+    <mat-label>Person</mat-label>
+    <mat-select [(value)]="selectedPersonValue">
+      <mat-option *ngFor="let p of selectPersons" [(value)]="p.value">
+        {{p.viewValue}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  
+  <mat-form-field appearance="fill">
+    <mat-label>NumberType</mat-label>
+    <mat-select [(value)]="selectedNumberTypeValue">
+      <mat-option *ngFor="let p of selectNumberTypes" [(value)]="p.value">
+        {{p.viewValue}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  
+  </div>
+ 
+ 
+  <input type="text" pInputText [(ngModel)]="toBeAddedNumber"/>
+  <br>
+  <button mat-raised-button (click)="addPhoneNumber()" color="primary">Add Number</button>
+  <p-messages [(value)]="msgs"></p-messages>
+</div>
